@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .backGround{
+        background-color: #cfd1ff;
+    }
+}   
