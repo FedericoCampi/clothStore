@@ -14,7 +14,7 @@ const Featured = ({type}) => {
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id quae expedita, rerum laudantium sit fuga soluta numquam qui, fugiat esse a inventore beatae repellat corporis incidunt. Odio sunt facilis saepe.
                 </p>
             </div>
-            <div className='flex justify-center gap-[50px]'>
+            <div className='flex gap-[50px] flex-wrap'>
                 { error ? "Something wrong"
                 : (loading 
                 ? "loading"

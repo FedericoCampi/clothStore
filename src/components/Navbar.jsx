@@ -16,7 +16,7 @@ const Navbar = () => {
   const products = useSelector(state=>state.cart.products);
 
   return (
-    <div className='h-18 backGroundNav border-b border-[#383868]'>
+    <div className='h-18 bg-[#cfd1ff] border-b border-[#383868]'>
       <div className='py-2.5 px-2.5 flex'>
         <div className='grow-0 flex items-center gap-[25px] text-lg'>
           <div>
