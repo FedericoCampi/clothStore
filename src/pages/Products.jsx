@@ -1,43 +1,73 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useParams } from 'react-router-dom'
 import List from '../components/List'
 
-import pic1 from '/img/featured/pic1.jpg'
-import useFetch from '../hooks/useFetch'
+import women from '/img/featured/pic1.jpg'
+import men from '/img/imgProduct/black.jpg'
+import children from '/img/imgProduct/childrens.jpg'
+
+import mock from '../../mock/mock.json'
 
 const Products = () => {
 
-  const catId = parseInt(useParams().id);
-  const [maxPrice, setMaxPrice] = useState(1000);
-  const [sort, setSort] = useState(null);
-  const [selectedSubCats, setSelectedSubCats] = useState([])
+  const products = mock.Products
 
-  const {data, loading, error} = useFetch(`/sub-categories?[filters][categories][id][$eq]=${catId}`)
+  const catId = parseInt(useParams().id);
+  const [maxPrice, setMaxPrice] = useState(100);
+  const [sort, setSort] = useState([]);
+
+  const [productFilters, setProductFilters] = useState([])
+  const [categoryNumber, setCategoryNumber] = useState([])
+
+  const imagesBanner = [women, men, children]
   
+  const categories = ['Pants', 'T-shirts', 'Jacket', 'Dress', 'Jumpsuit']
+  const genres = ['woman', 'man']
+  
+  const location = useLocation();
+  const category = (location.pathname.substring(10,11)) 
+
+  useEffect(() => {
+    setProductFilters(products.filter(x => x.genre == genres[category]))
+  },[category])
+
   const handleChange = (e) => {
+    setProductFilters(products)
     const value = e.target.value;
     const isChecked = e.target.checked;
-
-    setSelectedSubCats(isChecked ? [...selectedSubCats, value] : selectedSubCats.filter(item=> item !== value))
+    console.log(productFilters)
+    const typeArray = products.filter(x => x.categories === value)
+    setProductFilters(typeArray.filter(x => x.genre === genres[category]))
+    // setProductFilters(productFilters.filter(x => x.categories == value))
   }
-  
+
   return (
     <div className='flex py-[30px] px-[50px]'>
       <div className="flex-initial min-w-[250px] flex flex-col gap-[10px]">
         <div className="flex flex-col gap-[5px]">
           <h2 className='text-lg font-bold'>Product Categories</h2>
-          {data?.map(item=>(
-            <div className="inputitem" key={item.id}>
-              <input type='checkbox' id={item.id} value={item.id} onChange={handleChange}/>
-              <label className='pl-2' htmlFor={item.id}>{item.attributes.title}</label>
+            <div className="inputitem">
+              <input type='radio' name='category' id={categories[0]} value={categories[0]} onChange={handleChange}/>
+              <label className='pl-2' htmlFor={categories[0]}>{categories[0]}</label>
             </div>
-          ))}
+            <div className="inputitem">
+              <input type='radio' name='category' id={categories[1]} value={categories[1]} onChange={handleChange}/>
+              <label className='pl-2' htmlFor={categories[1]}>{categories[1]}</label>
+            </div>
+            <div className="inputitem">
+              <input type='radio' name='category' id={categories[2]} value={categories[2]} onChange={handleChange}/>
+              <label className='pl-2' htmlFor={categories[2]}>{categories[2]}</label>
+            </div>
+            <div className="inputitem">
+              <input type='radio' name='category' id={categories[3]} value={categories[3]} onChange={handleChange}/>
+              <label className='pl-2' htmlFor={categories[3]}>{categories[3]}</label>
+            </div>
         </div>
         <div className="filteritem">
           <h2 className='text-lg font-bold pb-1.5'>Filter by price</h2>
           <div className="flex items-center">
             <span>0</span>
-            <input type='range' min={0} max={1000} onChange={(e)=> setMaxPrice(e.target.value)}/>
+            <input type='range' min={0} max={100} onChange={(e)=> setMaxPrice(e.target.value)}/>
             <span>{maxPrice}</span>
           </div>
         </div>
@@ -54,8 +84,8 @@ const Products = () => {
         </div>
       </div>
       <div className="flex-auto">
-        <img src={pic1} alt='pic1' className='w-full h-[300px] object-cover mb-[50px]'/>
-        <List catId={catId} maxPrice={maxPrice} sort={sort} subCats={selectedSubCats}/>
+        <img src={imagesBanner[category]} alt='pic1' className='w-full h-[300px] object-cover mb-[50px]'/>
+        <List productFilters={productFilters} catId={catId} maxPrice={maxPrice} sort={sort}/>
       </div>
     </div>
   )

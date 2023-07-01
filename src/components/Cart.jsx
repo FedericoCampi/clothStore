@@ -10,11 +10,11 @@ import { useParams } from 'react-router-dom';
 const Cart = () => {
 
     const id = useParams().id
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const products = useSelector(state=>state.cart.products)
 
     const UPLOAD_URL = import.meta.env.VITE_STRAPI_UPLOAD_URL
-
+    console.log(products)
     const totalPrice = () => {
         let total = 0
         products.forEach((item) => (
@@ -49,7 +49,7 @@ const Cart = () => {
                         <div className="w-full flex items-center gap-[20px] justify-between" key={item.id}>
                             <div className="w-full flex items-center gap-[20px]">
                                 <img className='w-[80px] h-[100px] object-cover' 
-                                    src={UPLOAD_URL+item.img} alt='cartImg'/>
+                                    src={item.img} alt='cartImg'/>
                                 <div className="w-full details">
                                     <h3 className='text-lg text-black'>{item.title}</h3>
                                     <p className='text-gray-500 mb-[10px]'>{item.description}</p>

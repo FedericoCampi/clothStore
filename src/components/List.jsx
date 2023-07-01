@@ -2,18 +2,19 @@ import React from 'react'
 import Card from './Card';
 import useFetch from '../hooks/useFetch';
 
-const List = ({subCats, maxPrice, catId, sort}) => {
+const List = ({productFilters, subCats, maxPrice, catId, sort}) => {
 
-    if(sort == null){sort = "asc"}
+    let productsFinals = productFilters.filter(x => x.price <= maxPrice)
 
-    const {data, loading, error} = useFetch(`products?populate=*&[filters][categories]
-    [id]=${catId}${subCats.map((item)=>`&[filters][sub_categories][id][$eq]=${item}`)}
-    &[filters][price][$lte]=${maxPrice}&sort=price:${sort}`)
+    if(sort == 'asc'){
+        productsFinals.sort((a,b) => (a.price > b.price) ? 1 : -1)
+    }else{
+        productsFinals.sort((a,b) => (a.price < b.price) ? 1 : -1)
+    }
 
     return (
         <div className='flex justify-between flex-wrap'>
-            {loading ? "Loading" 
-            : data?.map(item => (
+            {productsFinals?.map(item => (
                 <Card item={item} key={item.id}/>
             ))}
         </div>

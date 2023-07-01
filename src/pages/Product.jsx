@@ -7,39 +7,43 @@ import useFetch from '../hooks/useFetch';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/cartReducer';
 
+import mock from '../../mock/mock.json'
+
 const Product = () => {
 
   const id = useParams().id
-  const [selectedImg, setSelectedImg] = useState("image");
   const [quantity, setQuantity] = useState(1);
 
   const dispatch = useDispatch();
-  const { data, loading, error } = useFetch(`/products/${id}?populate=*`)
+
+  const products = mock.Products
+  const product = products.filter((x) => x.id == id)
+  const productItems = product[0]
+
+  const [selectedImg, setSelectedImg] = useState(productItems.image1)
   
   const UPLOAD_URL = import.meta.env.VITE_STRAPI_UPLOAD_URL
 
   return (
     <div className='py-[20px] px-[50px] flex gap-[50px]'>
-      {loading ? ("loading") : (
-        <>
           <div className="flex-1 flex gap-[20px]">
             <div className="flex-1">
               <img className='w-full h-[150px] object-cover cursor-pointer mb-[10px] min-w-[125px]' 
-                src={UPLOAD_URL+data?.attributes?.image?.data?.attributes?.url} alt='black' 
-                onClick={e=>setSelectedImg("image")}/>
+                src={productItems.image1} alt={productItems.title} 
+                onClick={e=>setSelectedImg(productItems.image1)}/>
               <img className='w-full h-[150px] object-cover cursor-pointer mb-[10px] min-w-[125px]' 
-                src={UPLOAD_URL+data?.attributes?.image2?.data?.attributes?.url} alt='shirts' 
-                onClick={e=>setSelectedImg("image2")}/>
+                src={productItems.image2} alt={productItems.title} 
+                onClick={e=>setSelectedImg(productItems.image2)}/>
             </div>
             <div className="flex-5">
               <img className='w-full max-h-[800px] object-cover' 
-              src={UPLOAD_URL+data?.attributes[selectedImg]?.data?.attributes?.url} alt='' />
+              src={selectedImg} alt='' />
             </div>
           </div>
           <div className="flex-1 flex flex-col gap-[30px]">
-            <h1 className='text-2xl'>{data?.attributes?.title}</h1>
-            <span className='text-3xl text-orange-500 font-medium'>${data?.attributes?.price}</span>
-            <p className='text-justify'>{data?.attributes?.description}</p>
+            <h1 className='text-2xl'>{productItems.title}</h1>
+            <span className='text-3xl text-orange-500 font-medium'>${productItems.price}</span>
+            <p className='text-justify'>{productItems.description}</p>
             <div className='flex items-center gap-[10px]'>
               <button className='bg-slate-200 border-2 border-gray-400 w-[35px] h-[35px] 
                 flex items-center justify-center' 
@@ -55,11 +59,11 @@ const Product = () => {
             </div>
             <button className='w-[250px] p-[10px] bg-orange-600 text-white items-center gap-[20px] cursor-pointer font-medium'
               onClick={()=>dispatch(addToCart({
-                id: data.id,
-                title: data.attributes.title,
-                description: data.attributes.description,
-                price: data.attributes.price,
-                img: data.attributes.image.data.attributes.url,
+                id: productItems.id,
+                title: productItems.title,
+                description: productItems.description,
+                price: productItems.price,
+                img: productItems.image1,
                 quantity
               }))}>
               <AddShoppingCartIcon/> ADD TO CART
@@ -73,9 +77,9 @@ const Product = () => {
               </div>
             </div>
             <div className="flex flex-col gap-[10px] text-gray-500 my-[15px]">
-              <span>Vendor: Polo</span>
-              <span>Product type: T-shirt</span>
-              <span>Tag: T-shirt, Women, Top</span>
+              <span>Vendor: {productItems.brand}</span>
+              <span>Product type: {productItems.categories}</span>
+              <span>Tag: {productItems.categories}, {productItems.sub_categories}, {productItems.genre}</span>
             </div>
             <hr />
             <div className="flex flex-col gap-[10px] text-gray-500 mt-[15px]">
@@ -86,8 +90,6 @@ const Product = () => {
               <span>FAQ</span>
             </div>
           </div>
-        </>
-      )}
     </div>
   )
 }

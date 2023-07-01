@@ -27,12 +27,12 @@ const Slider = () => {
                 <img className='w-screen h-full object-cover' src={data[2]} alt='carousel2'/>
             </div>
             <div className="absolute left-0 right-0 bottom-[200px] m-auto w-fit flex gap-[10px]">
-                <div className='text-white w-[50px] h-[50px] border-2 border-[#383868] flex items-center justify-center cursor-pointer'
+                <div className='text-[white] w-[50px] h-[50px] border-2 border-orange-600 flex items-center justify-center cursor-pointer'
                     onClick={prevSlide}
                 >
                     <ArrowBackIcon/>
                 </div>
-                <div className='text-white w-[50px] h-[50px] border-2 border-[#383868] flex items-center justify-center cursor-pointer'
+                <div className='text-white w-[50px] h-[50px] border-2 border-orange-600 flex items-center justify-center cursor-pointer'
                     onClick={nextSlide}
                 >
                     <ArrowForwardIcon/>

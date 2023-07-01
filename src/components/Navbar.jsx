@@ -16,7 +16,7 @@ const Navbar = () => {
   const products = useSelector(state=>state.cart.products);
 
   return (
-    <div className='h-18 bg-[#cfd1ff] border-b border-[#383868]'>
+    <div className='h-18 border-b navBarBackground'>
       <div className='py-2.5 px-2.5 flex'>
         <div className='grow-0 flex items-center gap-[25px] text-lg'>
           <div>
@@ -28,13 +28,13 @@ const Navbar = () => {
             <KeyboardArrowDownIcon />
           </div>
           <div>
-            <Link to='/products/1'>Women</Link>
+            <Link to='/products/0'>Women</Link>
           </div>
           <div>
-            <Link to='/products/2'>Men</Link>
+            <Link to='/products/1'>Men</Link>
           </div>
           <div>
-            <Link to='/products/3'>Children</Link>
+            <Link to='/products/2'>Children</Link>
           </div>
         </div>
         <div className='grow flex  justify-center items-center text-3xl tracking-wider'>
@@ -57,7 +57,7 @@ const Navbar = () => {
             <div className='flex items-center relative cursor-pointer' onClick={() => setOpen(!open)}>
               <ShoppingCartIcon style={{color: 'black'}}/>
               <span className='absolute top-[-10px] right-[-8px] flex justify-center 
-                  items-center text-xs w-5 h-5 rounded-xl bg-emerald-900 text-white'>
+                  items-center text-xs w-5 h-5 rounded-xl bg-orange-600 text-white'>
                     {products.length}
               </span>
             </div>

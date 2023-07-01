@@ -3,14 +3,16 @@ import Categories from '../components/Categories'
 import Contact from '../components/Contact'
 import Featured from '../components/Featured'
 import Slider from '../components/Slider'
+import Trending from '../components/Trending'
 
 const Home = () => {
+  
   return (
     <div className='home'>
       <Slider/>
-      <Featured type='featured'/>
+      <Featured/>
       <Categories/>
-      <Featured type='trending'/>
+      <Trending/>
       <Contact/>
     </div>
   )
