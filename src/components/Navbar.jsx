@@ -38,7 +38,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className='grow flex  justify-center items-center text-3xl tracking-wider'>
-          <Link to='/'>STORE</Link>
+          <Link to='/' className='font-mono text-4xl'>E&C</Link>
         </div>
         <div className='grow-0 flex items-center gap-[25px] text-lg'>
           <div>
@@ -51,11 +51,11 @@ const Navbar = () => {
             <Link to='/'>Contact</Link>
           </div>
           <div className='flex gap-[15px]'>
-            <SearchIcon style={{color: 'black'}}/>
-            <PersonIcon style={{color: 'black'}}/>
-            <FavoriteIcon style={{color: 'black'}}/>
+            <SearchIcon className='hover:text-orange-600'/>
+            <PersonIcon className='hover:text-orange-600'/>
+            <FavoriteIcon className='hover:text-red-600'/>
             <div className='flex items-center relative cursor-pointer' onClick={() => setOpen(!open)}>
-              <ShoppingCartIcon style={{color: 'black'}}/>
+              <ShoppingCartIcon className='hover:text-orange-600'/>
               <span className='absolute top-[-10px] right-[-8px] flex justify-center 
                   items-center text-xs w-5 h-5 rounded-xl bg-orange-600 text-white'>
                     {products.length}

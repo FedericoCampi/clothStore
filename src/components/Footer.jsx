@@ -24,20 +24,18 @@ const Footer = () => {
         </div>
         <div className='flex-1 flex flex-col gap-[10px]'>
           <h1 className={styles.titlesFooter}>About</h1>
-          <span className={`${styles.textFooter} text-justify break-all`}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor iste harum 
-            doloribus laborum nemo illum modi a pariatur dolore consequatur?
+          <span className={`${styles.textFooter} text-justify break-all`}>The content of this site is copyright-protected and is the property of E&C. Is committed to accessibility. That commitment means E&C embraces WCAG guidelines and supports assistive technologies such as screen readers.
           </span>
         </div>
         <div className='flex-1 flex flex-col gap-[10px]'>
           <h1 className={styles.titlesFooter}>Contact</h1>
-          <span className={`${styles.textFooter} text-justify break-all`}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor iste harum 
-            doloribus laborum nemo illum modi a pariatur dolore consequatur?
+          <span className={`${styles.textFooter} text-justify break-all`}>Please call our TOLL-FREE support line (855-466-7467) for assistance.
           </span>
         </div>
       </div>
       <div className='flex items-center justify-between mt-[40px]'>
         <div className='flex items-center'>
-          <span className='font-bold text-orange-600'>Store</span>
+          <span className='font-bold text-orange-600'>E&C</span>
           <span className='ml-[20px] text-gray-500'>&copy;Copyright 2023. All Rights Reserved</span>
         </div>
         <div>

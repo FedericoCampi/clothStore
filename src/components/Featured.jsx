@@ -10,11 +10,9 @@ const Featured = () => {
     
     return (
         <div className='my-[100px] mx-[200px]'>
-            <div className='flex items-center justify-between mb-[50px]'>
-                <h1 className='flex-1 capitalize text-xl font-bold'>Featured products</h1>
-                <p className='flex-[2_2_0%] text-gray-500'>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id quae expedita, rerum laudantium sit fuga soluta numquam qui, fugiat esse a inventore beatae repellat corporis incidunt. Odio sunt facilis saepe.
-                </p>
+            <div className='items-center justify-between ml-[100px] mb-[50px]'>
+                <h1 className='flex-1 capitalize text-5xl text-start font-bold'>Su­per Sale</h1>
+                <h1 className='flex-1 capitalize text-5xl text-start font-bold'>new styles avail­able now</h1> 
             </div>
             <div className='flex gap-[50px] flex-wrap'>
                 {  
