@@ -14,7 +14,7 @@ const Cart = () => {
     const products = useSelector(state=>state.cart.products)
 
     const UPLOAD_URL = import.meta.env.VITE_STRAPI_UPLOAD_URL
-    console.log(products)
+    
     const totalPrice = () => {
         let total = 0
         products.forEach((item) => (

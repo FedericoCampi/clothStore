@@ -5,6 +5,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import TwitterIcon from '@mui/icons-material/Twitter';
 
 const Contact = () => {
+    
     return (
         <div className='bg-orange-600 text-white w-full h-full p-[15px] flex justify-center'>
             <div className="w-2/4 flex items-center justify-between">

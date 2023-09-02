@@ -35,10 +35,9 @@ const Products = () => {
     setProductFilters(products)
     const value = e.target.value;
     const isChecked = e.target.checked;
-    console.log(productFilters)
+    
     const typeArray = products.filter(x => x.categories === value)
     setProductFilters(typeArray.filter(x => x.genre === genres[category]))
-    // setProductFilters(productFilters.filter(x => x.categories == value))
   }
 
   return (
