@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import classNames from 'classnames';
 
 import Categories from '../components/Categories'
 import Contact from '../components/Contact'

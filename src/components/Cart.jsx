@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItem,addProduct, resetCart, removeProduct } from '../redux/cartReducer';
-import { loadStripe } from '@stripe/stripe-js';
-import { makeRequest } from '../makeRequest'; 
-import useFetch from '../hooks/useFetch';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+
+
+import axios from 'axios';
 
 const Cart = () => {
 
@@ -14,6 +14,8 @@ const Cart = () => {
     const products = useSelector(state=>state.cart.products)
 
     const UPLOAD_URL = import.meta.env.VITE_STRAPI_UPLOAD_URL
+
+    const navigate = useNavigate();
     
     const totalPrice = () => {
         let total = 0
@@ -23,20 +25,42 @@ const Cart = () => {
         return total.toFixed(2)
     };
 
-    const stripePromise = loadStripe('pk_test_51MxtytAfwBI7P8aaUkvl6MwPc8HMHhaHnJvxEgSklB3VwKsG07a3jnGm3FXFRMkhW0pXMlDr6uPQSa7gWKSRKJIx00Ou6yFQTZ');
-    
-    const handlePayment = async() => {
-        try {
-            const stripe = await stripePromise;
 
-            const res = await makeRequest.post("/orders", {
-                products
-            });
-            await stripe.redirectToCheckout({
-                sessionId: res.data.stripeSession.id,
-            })
+    const urlLocal = "http://localhost:3600"
+    const url = "https://apinode-mysql-ylcl-dev.fl0.io"
+
+    const [productData, setProductData] = useState([]);
+
+    useEffect(() => {
+        setProductData(products?.map(product => ({
+            price_data: {
+                product_data: {
+                    name: product.title,
+                    description: product.description,
+                },
+                currency: "usd",
+                unit_amount: Math.floor(product.price*100),
+            },
+            quantity: product.quantity
+            }))
+        )
+    },[products])
+
+    const handlePayment = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post(`${url}/api/create-checkout-session`, productData);
+
+            if (response.status === 200) {
+            // Handle success
+            console.log('Data successfully sent to the API', response.data.url);
+            window.location.replace(response.data.url);
+            } else {
+            // Handle errors
+            console.error('Failed to send data to the API');
+            }
         } catch (error) {
-            console.log(error.response.data)
+            console.error('Error:', error.message);
         }
     };
 
