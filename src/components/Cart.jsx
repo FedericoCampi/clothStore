@@ -12,10 +12,6 @@ const Cart = () => {
     const id = useParams().id
     const dispatch = useDispatch()
     const products = useSelector(state=>state.cart.products)
-
-    const UPLOAD_URL = import.meta.env.VITE_STRAPI_UPLOAD_URL
-
-    const navigate = useNavigate();
     
     const totalPrice = () => {
         let total = 0
@@ -53,7 +49,6 @@ const Cart = () => {
 
             if (response.status === 200) {
             // Handle success
-            console.log('Data successfully sent to the API', response.data.url);
             window.location.replace(response.data.url);
             } else {
             // Handle errors
@@ -81,7 +76,7 @@ const Cart = () => {
                                         <div className='flex items-center'>
                                             <button className='w-[20px] border border-[#383868]
                                                 h-[25px] flex items-center justify-center'
-                                                disabled={item.quantity <= 1 ? true: false}
+                                                disabled={item.quantity < 1 ? dispatch(removeItem(item.id)): false}
                                                 onClick={() => dispatch(removeProduct({
                                                     id: item.id,
                                                 }))}
